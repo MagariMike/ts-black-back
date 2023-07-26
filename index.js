@@ -7,8 +7,17 @@ var message = "";
 var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
+var getRandomCard = function () {
+    return Math.floor(Math.random() * 13) + 1;
+};
+var startGame = function () {
+    renderGame();
+};
 var renderGame = function () {
-    cardsEl.textContent = "Cards: ".concat(cards[0], " + ").concat(cards[1]);
+    cardsEl.textContent = "Cards: ";
+    for (var i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " ";
+    }
     sumEl.textContent = "Sum: " + sum;
     if (sum <= 20) {
         message = "Do you want to draw a new card?";
@@ -23,9 +32,11 @@ var renderGame = function () {
         console.log(message);
         isAlive = false;
     }
+    messageEl.textContent = message;
 };
 var newCard = function () {
-    var card = 7;
+    var card = getRandomCard();
     sum += card;
+    cards.push(card);
     renderGame();
 };
