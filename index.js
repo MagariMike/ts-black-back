@@ -1,16 +1,28 @@
-var firstCard = 10;
-var secondCard = 4;
-var cards = [firstCard, secondCard];
-var sum = firstCard + secondCard;
-var isAlive = true;
+var cards = [];
+var sum = 0;
+var isAlive = false;
 var message = "";
 var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
-var getRandomCard = function () {
-    return Math.floor(Math.random() * 13) + 1;
-};
+function getRandomCard() {
+    var randomNumber = Math.floor(Math.random() * 13) + 1;
+    if (randomNumber > 10) {
+        return 10;
+    }
+    else if (randomNumber === 1) {
+        return 11;
+    }
+    else {
+        return randomNumber;
+    }
+}
 var startGame = function () {
+    isAlive = true;
+    var firstCard = getRandomCard();
+    var secondCard = getRandomCard();
+    cards = [firstCard, secondCard];
+    sum = firstCard + secondCard;
     renderGame();
 };
 var renderGame = function () {
