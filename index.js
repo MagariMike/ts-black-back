@@ -1,10 +1,17 @@
+var player = {
+    name: "Mike",
+    chips: 200
+};
 var cards = [];
 var sum = 0;
+var hasBlackjack = false;
 var isAlive = false;
 var message = "";
 var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
+var playerEl = document.getElementById("player-el");
+playerEl.textContent = player.name + ": £" + player.chips; // WHY IS THIS BREAKING THINGS. 
 function getRandomCard() {
     var randomNumber = Math.floor(Math.random() * 13) + 1;
     if (randomNumber > 10) {
@@ -37,18 +44,21 @@ var renderGame = function () {
     }
     else if (sum === 21) {
         message = "You've got Blackjack!";
+        hasBlackjack = true;
         console.log(message);
     }
     else {
         message = "You're out of the game!";
-        console.log(message);
         isAlive = false;
+        console.log(message);
     }
     messageEl.textContent = message;
 };
 var newCard = function () {
-    var card = getRandomCard();
-    sum += card;
-    cards.push(card);
-    renderGame();
+    if (isAlive && !hasBlackjack) {
+        var card = getRandomCard();
+        sum += card;
+        cards.push(card);
+        renderGame();
+    }
 };
